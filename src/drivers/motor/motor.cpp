@@ -4,16 +4,19 @@
 
 namespace drivers::motor
 {
-    void init()
+    void MotorDriver::init()
     {
-        pinMode(9, OUTPUT);
-        pinMode(10, OUTPUT);
+        pinMode(dir_pin, OUTPUT);
+        pinMode(pwm_pin, OUTPUT);
     }
 
-    void set_voltage(float voltage)
+    void MotorDriver::set_voltage(float u)
     {
-        analogWrite(9, voltage);
-        analogWrite(10, voltage);
+        digitalWrite(dir_pin, u > 0);
+
+        int pwm = u / 9.0 * 255;
+
+        analogWrite(pwm_pin, pwm);
     }
 
 }; // namespace drivers::motor
